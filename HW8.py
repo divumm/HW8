@@ -32,7 +32,7 @@ def load_rest_data(db):
     """
 
 def plot_rest_categories(db):
-    
+
     """
     This function accepts a file name of a database as a parameter and returns a dictionary. The keys should be the
     restaurant categories and the values should be the number of restaurants in each category. The function should
@@ -41,12 +41,23 @@ def plot_rest_categories(db):
     pass
 
 def find_rest_in_building(building_num, db):
+    final = []
+    conn = sqlite3.connect(db)
+    cur = conn.cursor()
+    cur.execute("SELECT restaurants.name, restaurants.rating, buildings.building FROM restaurants JOIN buildings ON restaurants.building_id = buildings.id")
+    fetched = cur.fetchall()
+    fetched_sorted = sorted(fetched, key = lambda x: x[1], reverse=True)
+    for x in fetched_sorted:
+        if x[2] == building_num:
+            final.append(x[0])
+    return final
+    
+
     '''
     This function accepts the building number and the filename of the database as parameters and returns a list of 
     restaurant names. You need to find all the restaurant names which are in the specific building. The restaurants 
     should be sorted by their rating from highest to lowest.
     '''
-    pass
 
 #EXTRA CREDIT
 def get_highest_rating(db): #Do this through DB as well
