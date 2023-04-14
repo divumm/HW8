@@ -1,7 +1,7 @@
-# Your name: 
-# Your student id:
-# Your email:
-# List who you have worked with on this homework:
+# Your name: Divum Mittal
+# Your student id: 09885854
+# Your email: divum@umich.edu
+# List who you have worked with on this homework: Julia Coffmann
 
 import matplotlib.pyplot as plt
 import os
@@ -9,15 +9,30 @@ import sqlite3
 import unittest
 
 def load_rest_data(db):
+    d = {}
+    conn = sqlite3.connect(db)
+    cur = conn.cursor()
+    #cur.execute("CREATE TABLE IF NOT EXISTS Restaurants (id INTEGER PRIMARY KEY, name TEXT, category_id INTEGER, building_id INTEGER, rating TEXT)")
+    cur.execute("SELECT restaurants.name, buildings.building,  categories.category, restaurants.rating from restaurants JOIN buildings on buildings.id = restaurants.building_id JOIN categories on categories.id = restaurants.category_id")
+    stuff = cur.fetchall()
+    for i in stuff:
+        empty = {}
+        empty['category'] = i[2]
+        empty['building'] = i[1]
+        empty['rating'] = i[3]
+        #print(i)
+        name = i[0]
+        d[name] = empty
+    return d
     """
     This function accepts the file name of a database as a parameter and returns a nested
     dictionary. Each outer key of the dictionary is the name of each restaurant in the database, 
     and each inner key is a dictionary, where the key:value pairs should be the category, 
     building, and rating for the restaurant.
     """
-    pass
 
 def plot_rest_categories(db):
+    
     """
     This function accepts a file name of a database as a parameter and returns a dictionary. The keys should be the
     restaurant categories and the values should be the number of restaurants in each category. The function should
