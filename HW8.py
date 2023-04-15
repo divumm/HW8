@@ -42,11 +42,11 @@ def plot_rest_categories(db):
     names = list(names)
     values = sorted_bar_dict.values()
     values = list(values)
-    # plt.barh(names, values)
-    # plt.xlabel("Number of Restaurants")
-    # plt.ylabel("Restaurant Categories")
-    # plt.title("Types of Restaurants on South University Ave")
-    # plt.show()
+    plt.barh(names, values)
+    plt.xlabel("Number of Restaurants")
+    plt.ylabel("Restaurant Categories")
+    plt.title("Types of Restaurants on South University Ave")
+    plt.show()
     return bar_dict
 
 
@@ -94,29 +94,29 @@ def get_highest_rating(db): #Do this through DB as well
     fetched_rate = dict(fetched_sorted_ratings)
     fetched_build = dict(fetched_sorted_buildings)
 
-    # names = fetched_rate.keys()
-    # names = list(names)
-    # values = fetched_rate.values()
-    # values = list(values)
-    # plt.barh(names, values)
-    # plt.xlabel("Ratings")
-    # plt.ylabel("Categories")
-    # plt.title("Average Restaurant Ratings by Category")
-    # plt.show()
+    names = fetched_rate.keys()
+    names = list(names)
+    values = fetched_rate.values()
+    values = list(values)
+    plt.barh(names, values)
+    plt.xlabel("Ratings")
+    plt.ylabel("Categories")
+    plt.title("Average Restaurant Ratings by Category")
+    plt.show()
 
 
-    # names = fetched_build.keys()
-    # names_string = []
-    # for i in names:
-    #     temp = str(i)
-    #     names_string.append(temp)
-    # values = fetched_build.values()
-    # values = list(values)
-    # plt.barh(names_string, values)
-    # plt.xlabel("Ratings")
-    # plt.ylabel("Buildings")
-    # plt.title("Average Restaurant Ratings by Building")
-    # plt.show()
+    names = fetched_build.keys()
+    names_string = []
+    for i in names:
+        temp = str(i)
+        names_string.append(temp)
+    values = fetched_build.values()
+    values = list(values)
+    plt.barh(names_string, values)
+    plt.xlabel("Ratings")
+    plt.ylabel("Buildings")
+    plt.title("Average Restaurant Ratings by Building")
+    plt.show()
     return lst
     """
     This function return a list of two tuples. The first tuple contains the highest-rated restaurant category 
