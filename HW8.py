@@ -42,11 +42,11 @@ def plot_rest_categories(db):
     names = list(names)
     values = sorted_bar_dict.values()
     values = list(values)
-    plt.barh(names, values)
-    plt.xlabel("Number of Restaurants")
-    plt.ylabel("Restaurant Categories")
-    plt.title("Types of Restaurants on South University Ave")
-    plt.show()
+    # plt.barh(names, values)
+    # plt.xlabel("Number of Restaurants")
+    # plt.ylabel("Restaurant Categories")
+    # plt.title("Types of Restaurants on South University Ave")
+    # plt.show()
     return bar_dict
 
 
@@ -77,6 +77,47 @@ def find_rest_in_building(building_num, db):
 
 #EXTRA CREDIT
 def get_highest_rating(db): #Do this through DB as well
+    lst = []
+    conn = sqlite3.connect(db)
+    cur = conn.cursor()
+    cur.execute("SELECT categories.category, ROUND(AVG(restaurants.rating),1) FROM restaurants JOIN categories ON restaurants.category_id = categories.id GROUP BY category")
+    fetched_rating = cur.fetchall()
+    fetched_sorted_ratings = sorted(fetched_rating, key = lambda x: x[1])
+    cur.execute("SELECT buildings.building, ROUND(AVG(restaurants.rating),1) FROM restaurants JOIN buildings ON restaurants.building_id = buildings.id GROUP BY building")
+    fetched_building = cur.fetchall()
+    fetched_sorted_buildings = sorted(fetched_building, key = lambda x: x[1])
+
+
+    lst.append(fetched_sorted_ratings[-1])
+    lst.append(fetched_sorted_buildings[-1])
+
+    fetched_rate = dict(fetched_sorted_ratings)
+    fetched_build = dict(fetched_sorted_buildings)
+
+    # names = fetched_rate.keys()
+    # names = list(names)
+    # values = fetched_rate.values()
+    # values = list(values)
+    # plt.barh(names, values)
+    # plt.xlabel("Ratings")
+    # plt.ylabel("Categories")
+    # plt.title("Average Restaurant Ratings by Category")
+    # plt.show()
+
+
+    # names = fetched_build.keys()
+    # names_string = []
+    # for i in names:
+    #     temp = str(i)
+    #     names_string.append(temp)
+    # values = fetched_build.values()
+    # values = list(values)
+    # plt.barh(names_string, values)
+    # plt.xlabel("Ratings")
+    # plt.ylabel("Buildings")
+    # plt.title("Average Restaurant Ratings by Building")
+    # plt.show()
+    return lst
     """
     This function return a list of two tuples. The first tuple contains the highest-rated restaurant category 
     and the average rating of the restaurants in that category, and the second tuple contains the building number 
